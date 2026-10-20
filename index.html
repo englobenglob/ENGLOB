@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08080b" />
+    <meta name="description" content="ENGLOB: informação e apoio para viver bem em qualquer lugar do mundo." />
+    <title>ENGLOB | Seu mundo, mais perto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <section id="language-screen" class="screen language-screen">
+        <div class="welcome-side">
+          <div class="brand-lockup">
+            <img src="assets/ENGLOB.icon.png" alt="" class="brand-icon" />
+            <span>ENGLOB</span>
+          </div>
+          <div class="welcome-copy">
+            <span class="eyebrow"><span class="eyebrow-dot"></span> Acolhimento sem fronteiras</span>
+            <h1>O mundo muda.<br /><span>Você pertence.</span></h1>
+            <p>Informação e apoio para se sentir em casa, onde quer que a vida te leve.</p>
+          </div>
+          <div class="welcome-footer"><span>01</span><span class="footer-rule"></span><span>Um lugar novo começa aqui</span></div>
+          <div class="welcome-orbit orbit-one"></div>
+          <div class="welcome-orbit orbit-two"></div>
+        </div>
+
+        <div class="language-side">
+          <div class="step-label"><span>PRIMEIRO PASSO</span><span>01 / 03</span></div>
+          <div class="language-content">
+            <div class="language-heading">
+              <span class="tiny-kicker">BEM-VINDO AO ENGLOB</span>
+              <h2>Em qual idioma<br />você prefere continuar?</h2>
+              <p>Você pode alterar essa escolha depois.</p>
+            </div>
+            <div class="language-grid" role="list" aria-label="Escolha seu idioma">
+              <button class="language-option selected" data-language="pt" data-label="Português" aria-pressed="true"><span class="language-flag">🇧🇷</span><span><strong>Português</strong><small>Brasil</small></span><span class="language-check">✓</span></button>
+              <button class="language-option" data-language="en" data-label="English" aria-pressed="false"><span class="language-flag">🇬🇧</span><span><strong>English</strong><small>English</small></span><span class="language-check">✓</span></button>
+              <button class="language-option" data-language="es" data-label="Español" aria-pressed="false"><span class="language-flag">🇪🇸</span><span><strong>Español</strong><small>Español</small></span><span class="language-check">✓</span></button>
+              <button class="language-option" data-language="fr" data-label="Français" aria-pressed="false"><span class="language-flag">🇫🇷</span><span><strong>Français</strong><small>Français</small></span><span class="language-check">✓</span></button>
+            </div>
+            <button class="button button-primary language-continue" id="continue-language">Continuar <i data-lucide="arrow-right"></i></button>
+            <p class="privacy-note"><i data-lucide="shield-check"></i> Seus dados, no seu controle.</p>
+          </div>
+          <div class="language-bottom"><span>© ENGLOB 2026</span><button class="text-button" data-open="help">Precisa de ajuda?</button></div>
+        </div>
+      </section>
+
+      <section id="auth-screen" class="screen auth-screen hidden">
+        <aside class="auth-visual">
+          <div class="brand-lockup"><img src="assets/ENGLOB.icon.png" alt="" class="brand-icon" /><span>ENGLOB</span></div>
+          <div class="auth-visual-copy"><span class="eyebrow"><span class="eyebrow-dot"></span> A sua próxima etapa</span><h1>Chegar é só<br />o <span>começo.</span></h1><p>Conte com uma rede de apoio para fazer de qualquer lugar um novo lar.</p></div>
+          <div class="auth-visual-bottom"><span class="mini-globe"><i data-lucide="globe-2"></i></span><span>Conectando pessoas<br />a novos lugares.</span></div>
+          <div class="auth-glow"></div>
+        </aside>
+        <div class="auth-main">
+          <button id="back-language" class="back-button"><i data-lucide="arrow-left"></i> Voltar</button>
+          <div class="auth-form-wrap">
+            <div class="step-label"><span>02 / 03</span><span id="chosen-language">PORTUGUÊS</span></div>
+            <div class="auth-heading"><span class="tiny-kicker">ACESSO À PLATAFORMA</span><h2 id="auth-title">Que bom ter você<br />por aqui.</h2><p id="auth-subtitle">Entre na sua conta para continuar.</p></div>
+            <div class="auth-tabs" role="tablist" aria-label="Tipo de conta">
+              <button class="auth-tab active" data-role="personal" role="tab" aria-selected="true"><i data-lucide="user-round"></i> Conta própria</button>
+              <button class="auth-tab" data-role="institution" role="tab" aria-selected="false"><i data-lucide="building-2"></i> Instituição</button>
+            </div>
+            <form id="auth-form" class="auth-form">
+              <label class="field-label" for="email">E-mail</label>
+              <div class="input-wrap"><i data-lucide="mail"></i><input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required /></div>
+              <div id="name-field" class="hidden"><label class="field-label" for="full-name">Nome completo</label><div class="input-wrap"><i data-lucide="user-round"></i><input id="full-name" name="name" type="text" placeholder="Como podemos te chamar?" autocomplete="name" /></div></div>
+              <div id="institution-field" class="hidden"><label class="field-label" for="institution-name">Empresa ou instituição</label><div class="input-wrap"><i data-lucide="building-2"></i><input id="institution-name" name="institution" type="text" placeholder="Nome da organização" autocomplete="organization" /></div></div>
+              <label class="field-label password-label" for="password">Senha <button type="button" class="text-button" id="forgot-password">Esqueci minha senha</button></label>
+              <div class="input-wrap"><i data-lucide="lock-keyhole"></i><input id="password" name="password" type="password" placeholder="Mínimo de 8 caracteres" autocomplete="current-password" minlength="8" required /><button type="button" class="input-action" id="toggle-password" aria-label="Mostrar senha"><i data-lucide="eye"></i></button></div>
+              <p id="auth-message" class="form-message" aria-live="polite"></p>
+              <button class="button button-primary auth-submit" id="auth-submit" type="submit">Entrar <i data-lucide="arrow-right"></i></button>
+            </form>
+            <p class="signup-prompt"><span id="signup-copy">Ainda não tem conta?</span> <button id="signup-toggle" class="text-button">Criar conta</button></p>
+            <div class="auth-legal">Ao continuar, você concorda com nossos <button data-open="terms" class="text-button">Termos de uso</button> e <button data-open="privacy" class="text-button">Política de privacidade</button>.</div>
+          </div>
+          <div class="auth-bottom"><span>© ENGLOB 2026</span><span>Feito para o mundo, pensado para você.</span></div>
+        </div>
+      </section>
+
+      <section id="dashboard-screen" class="screen dashboard-screen hidden">
+        <aside id="sidebar" class="sidebar">
+          <div class="sidebar-brand"><img src="assets/ENGLOB.icon.png" alt="" /><span>ENGLOB</span><button id="close-sidebar" class="icon-button mobile-close" aria-label="Fechar menu"><i data-lucide="x"></i></button></div>
+          <div class="sidebar-location"><span class="location-pulse"></span><span><small>SUA LOCALIZAÇÃO</small><strong id="sidebar-city">Lisboa, Portugal</strong></span><i data-lucide="chevron-down"></i></div>
+          <div class="nav-caption">EXPLORAR</div>
+          <nav class="main-nav" aria-label="Menu principal">
+            <button class="nav-item active" data-page="home"><i data-lucide="layout-dashboard"></i><span>Visão geral</span></button>
+            <button class="nav-item" data-page="places"><i data-lucide="map-pin"></i><span>Locais próximos</span></button>
+            <button class="nav-item" data-page="laws"><i data-lucide="scale"></i><span>Leis e direitos</span></button>
+            <button class="nav-item" data-page="transport"><i data-lucide="train-front"></i><span>Transportes</span></button>
+            <button class="nav-item" data-page="emergency"><i data-lucide="phone-call"></i><span>Números emergenciais</span><span class="nav-alert"></span></button>
+            <button class="nav-item" data-page="translator"><i data-lucide="languages"></i><span>Tradutor</span></button>
+          </nav>
+          <div class="sidebar-support"><div class="support-icon"><i data-lucide="life-buoy"></i></div><div><strong>Estamos com você</strong><span>Ajuda, a qualquer hora.</span></div><button id="support-button" class="icon-button" aria-label="Abrir ajuda"><i data-lucide="arrow-up-right"></i></button></div>
+          <button class="profile-button" id="profile-button"><span class="avatar" id="profile-avatar">M</span><span class="profile-meta"><strong id="profile-name">Minha conta</strong><small id="profile-type">Conta própria</small></span><i data-lucide="more-horizontal"></i></button>
+        </aside>
+        <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+        <main class="dashboard-main">
+          <header class="topbar">
+            <div class="topbar-left"><button class="icon-button mobile-menu" id="open-sidebar" aria-label="Abrir menu"><i data-lucide="menu"></i></button><div class="breadcrumb"><span>ENGLOB</span><i data-lucide="chevron-right"></i><strong id="breadcrumb-current">Visão geral</strong></div></div>
+            <div class="topbar-actions"><span class="connectivity"><span class="connectivity-dot"></span> Conectado 24/7</span><button id="language-switch" class="icon-button language-switch" aria-label="Alterar idioma"><i data-lucide="languages"></i></button><button class="top-avatar" id="top-avatar" aria-label="Abrir perfil">M</button></div>
+          </header>
+          <div id="page-content" class="page-content"></div>
+        </main>
+      </section>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <div id="modal-root"></div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
